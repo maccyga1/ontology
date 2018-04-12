@@ -40,7 +40,7 @@ var (
 )
 
 func OntInit(native *NativeService) error {
-	booKeepers := account.GetBookkeepers()
+	booKkeepers := account.GetBookkeepers()
 
 	contract := native.ContextRef.CurrentContext().ContractAddress
 	amount, err := getStorageBigInt(native, getTotalSupplyKey(contract))
@@ -52,8 +52,8 @@ func OntInit(native *NativeService) error {
 		return errors.NewErr("Init ont has been completed!")
 	}
 
-	ts := new(big.Int).Div(ONT_TOTAL_SUPPLY, big.NewInt(int64(len(booKeepers))))
-	for _, v := range booKeepers {
+	ts := new(big.Int).Div(ONT_TOTAL_SUPPLY, big.NewInt(int64(len(booKkeepers))))
+	for _, v := range booKkeepers {
 		address := ctypes.AddressFromPubKey(v)
 		native.CloneCache.Add(scommon.ST_STORAGE, append(contract[:], address[:]...), &cstates.StorageItem{Value: ts.Bytes()})
 		native.CloneCache.Add(scommon.ST_STORAGE, getTotalSupplyKey(contract), &cstates.StorageItem{Value: ts.Bytes()})
